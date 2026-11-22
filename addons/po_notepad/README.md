@@ -1,40 +1,41 @@
 # po_notepad
 
-Редактор `.po` внутри Godot. Каталог можно править списком и как текст. Встроенный импорт Translation плагин не подменяет: Godot по-прежнему сам собирает перевод из `.po`.
+A `.po` editor inside Godot. Edit a catalog entry by entry or as plain text. The plugin does not replace the built-in Translation import: Godot still builds translations from the `.po` files itself.
 
-Проверено на **Godot 4.7.2 stable** и **Dialogue Manager 4.2.0**.
+Tested with **Godot 4.7.2 stable** and **Dialogue Manager 4.2.0**.
 
-Лицензия: [MIT](LICENSE).
+License: [MIT](LICENSE). Русская версия: [README.ru.md](README.ru.md).
 
-## ИИ
+The interface is available in English and Russian. By default it follows the editor language; it can be pinned in the status bar.
 
-Скрипты плагина написаны с помощью ИИ-ассистента. Весь получившийся код проверен человеком. В форме Godot Asset Store это указывается в поле про использование ИИ. Текст для поля:
+## AI disclosure
 
 The editor scripts in this addon were drafted with an AI coding assistant (a large language model). A human reviewed all of the resulting code before release.
 
-## Dialogue Manager
+## Installation
 
-Реплики из `.dialogue` читаются парсером Dialogue Manager. Без включённого плагина слияние списка POT останавливается на первом таком файле, а двойной щелчок по реплике не открывает вкладку Dialogue.
+Copy `addons/po_notepad` into your project's `addons/` folder and enable it in Project Settings → Plugins → po_notepad. After changing the plugin's scripts, disable and enable it again: Godot does not reload them on its own.
 
-Ожидаемая связка, как в этом проекте:
+The **PO** tab appears next to 2D, 3D and Script. The locale list on the left shows the files from Project Settings → Localization → Translations that exist on disk. Any other `.po` opens with the folder button on the toolbar, from the FileSystem context menu, or by double-clicking it.
 
-- `dialogue_manager/use_static_ids_as_translation_keys` выключен. Оригинал — английская фраза, контекст — статический id без префикса `ID:`.
-- В пометке строки остаётся имя файла, например `#. dlg_desk_note.dialogue`. По нему двойной щелчок находит `[ID:…]` и открывает строку через Dialogue Manager.
+## Features
 
-Ключи из `.gd` и `.tscn` от Dialogue Manager не зависят. Обычный `.tres` плагин не открывает и в слияние не берёт: Godot показывает его в инспекторе, а список POT читает только `.dialogue`, `.gd` и `.tscn`.
+- List and text modes; context, notes, plural forms; adding and deleting entries.
+- Filters (empty, needs review, dialogue lines, keys), search, jumping to the next empty entry, "Copy original".
+- "Merge POT" reads the file list from Project Settings → Localization → POT Generation. A new string gets an empty translation. The same context with different English text keeps the translation and marks it "needs review". An exact match does not clear an existing review mark. A phrase that disappeared from the scenes is removed. A dotted key like `ui.hud.examine` is kept. An English catalog (`Language` starts with `en`) does not receive new dialogue lines.
+- Before saving, `{placeholders}` and the number of forms are checked against `nplurals`. An empty translation does not block saving. An accepted mismatch turns yellow and is remembered locally, not in the `.po`.
+- Double-click opens the `.dialogue` file or the script where the key is written literally. `actor.*` names are built in code, so the double-click leads to where they are built.
+- Unsaved edits are kept in `user://po_notepad` and offered back after a crash.
 
-## Как включить
+A merge changes only the open buffer and does not write to disk by itself.
 
-Project Settings → Plugins → po_notepad. После правки скриптов плагина его нужно выключить и включить снова: Godot их сам не перечитывает.
+## Dialogue Manager (optional)
 
-Локали слева — это файлы из Project Settings → Localization → Translations, которые есть на диске. Любой другой `.po` открывается кнопкой с папкой на панели.
+Dialogue lines from `.dialogue` files are read with the Dialogue Manager parser. Without that plugin everything else works, but a POT merge stops at the first `.dialogue` file, and double-clicking a dialogue line does not open the Dialogue tab.
 
-## Что умеет
+The expected setup:
 
-- Список и текст, контекст, пометка, формы множественного числа, добавление и удаление строк.
-- Фильтры, поиск, переход к пустым, «Подставить оригинал».
-- «Слить с POT» по списку Project Settings → Localization → POT Generation. Новая строка получает пустой перевод. Тот же контекст с другим английским оставляет перевод и ставит «на проверке». Точное совпадение уже стоящую проверку не снимает. Фраза, пропавшая из сцены, удаляется. Точечный ключ вроде `ui.hud.examine` остаётся. Английский каталог (`Language` начинается с `en`) новые реплики не получает.
-- Перед сохранением сверяются `{плейсхолдеры}` и число форм с `nplurals`. Пустой перевод сохранение не блокирует. Подтверждённая ошибка становится жёлтой и запоминается локально, не в `.po`.
-- Двойной щелчок открывает `.dialogue` или скрипт, где ключ записан буквально. Имя `actor.*` в коде собирается, поэтому щелчок ведёт к месту сборки.
+- `dialogue_manager/use_static_ids_as_translation_keys` is off. The original is the English phrase; the context is the static id without the `ID:` prefix.
+- The entry note keeps the file name, for example `#. dlg_desk_note.dialogue`. Double-click uses it to find the `[ID:…]` and opens the line through Dialogue Manager.
 
-Слияние меняет только открытый буфер и само на диск не пишет.
+Keys from `.gd` and `.tscn` do not depend on Dialogue Manager. The plugin does not open plain `.tres` files and does not merge them: Godot shows them in the Inspector, and the POT list is read only from `.dialogue`, `.gd` and `.tscn`.

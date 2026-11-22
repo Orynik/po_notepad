@@ -1,22 +1,35 @@
 # po_notepad
 
-Редактор `.po` внутри Godot 4.7: каталог можно править списком и как текст, сливать с POT и проверять перед сохранением. Подробное описание — в [addons/po_notepad/README.md](addons/po_notepad/README.md).
+A `.po` translation catalog editor for Godot 4.7: edit entries one by one or as plain text, merge the project's POT file list into the open catalog, and check placeholders and plural forms before saving. The full description is in [addons/po_notepad/README.md](addons/po_notepad/README.md) (Russian: [README.ru.md](addons/po_notepad/README.ru.md)).
 
-Лицензия: [MIT](LICENSE).
+![po_notepad](media/thumbnail.png)
 
-## Установка в игру
+License: [MIT](LICENSE).
 
-Скопируйте папку `addons/po_notepad` в `addons/` своего проекта и включите плагин: Project Settings → Plugins → po_notepad.
+## Installation
 
-## Структура репозитория
+Copy `addons/po_notepad` into your project's `addons/` folder and enable it in Project Settings → Plugins → po_notepad.
 
-- `addons/po_notepad/` — сам плагин. Только эта папка попадает в архив для Asset Library (см. `.gitattributes`).
-- `test/po_notepad/` — тесты GdUnit4.
-- `project.godot` — минимальный проект, чтобы открыть плагин и прогнать тесты отдельно от игры.
+## Repository layout
 
-## Тесты
+- `addons/po_notepad/` — the plugin. Only this folder goes into downloaded archives (see `.gitattributes`).
+- `test/po_notepad/` — GdUnit4 tests.
+- `media/` — icon and screenshots for the store pages. `.gdignore` keeps Godot from importing them.
+- `project.godot` — a minimal project to open the plugin and run the tests without a game.
 
-GdUnit4 в репозиторий не входит. Поставьте его в `addons/gdUnit4` (через Asset Library или из релиза GdUnit4), затем:
+## Release archive
+
+`.gitattributes` excludes everything except `addons/`, so a clean archive for the Asset Store is:
+
+```
+git archive --format=zip -o po_notepad.zip HEAD
+```
+
+The Godot Asset Library builds the same archive from the repository by itself.
+
+## Tests
+
+GdUnit4 is not part of the repository. Install it into `addons/gdUnit4` (from the Asset Library or a GdUnit4 release), then:
 
 ```
 godot --headless --path . --import

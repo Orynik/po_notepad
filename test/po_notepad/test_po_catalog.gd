@@ -195,13 +195,13 @@ func test_same_context_keeps_the_translation_when_the_english_diverges() -> void
 
 func test_exact_match_does_not_touch_fuzzy_or_the_note() -> void:
 	var catalog := _open(_ru_header() + "\n" + _entry("Hello", "Привет", "dialogue.note", "note.dialogue", true))
-	var before := catalog.to_text()
+	var text_before := catalog.to_text()
 	var messages: Array[Dictionary] = [_message("Hello", "dialogue.note", "", "other.dialogue")]
 	var result := catalog.merge_template(messages, false, _sources("note.dialogue"))
 	assert_bool(result.ok).is_true()
 	assert_int(result.kept).is_equal(1)
 	assert_int(result.reviewed.size()).is_equal(0)
-	assert_str(catalog.to_text()).is_equal(before)
+	assert_str(catalog.to_text()).is_equal(text_before)
 
 
 func test_close_english_without_the_same_context_is_reused() -> void:
@@ -263,8 +263,8 @@ func test_rewritten_note_still_drops_a_sentence_via_the_file_reference() -> void
 	]
 	var added := catalog.merge_template(first, false, _sources("room.tscn"))
 	assert_int(added.added.size()).is_equal(1)
-	var sign := _index_of(catalog, "A loose sign")
-	catalog.set_note(sign, "своя пометка")
+	var sign_index := _index_of(catalog, "A loose sign")
+	catalog.set_note(sign_index, "своя пометка")
 	var second: Array[Dictionary] = [_message("ui.hud.move_hint", "", "", "room.tscn")]
 	var removed := catalog.merge_template(second, false, _sources("room.tscn"))
 	assert_str(_joined(removed.removed)).contains("A loose sign")
@@ -289,12 +289,12 @@ func test_english_merge_skips_new_dialogue_and_keeps_existing_lines() -> void:
 
 func test_merge_aborts_when_the_template_loses_every_dialogue_line() -> void:
 	var catalog := _open(_ru_header() + "\n" + _entry("Hello", "Привет", "dialogue.note"))
-	var before := catalog.to_text()
+	var text_before := catalog.to_text()
 	var messages: Array[Dictionary] = [_message("ui.hud.move_hint")]
 	var result := catalog.merge_template(messages, false, PackedStringArray())
 	assert_bool(result.ok).is_false()
 	assert_str(result.error).is_not_empty()
-	assert_str(catalog.to_text()).is_equal(before)
+	assert_str(catalog.to_text()).is_equal(text_before)
 
 
 func test_a_new_plural_keeps_the_old_translation_and_marks_it_fuzzy() -> void:

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- po_notepad icon: a catalog page where each grey original line is followed
+       by its blue translation, and a pencil that edits it. -->
+  <rect x="8" y="8" width="240" height="240" rx="44" fill="#2b3445"/>
+  <path d="M64 36 H160 L200 76 V220 H64 Z" fill="#f2f4f7"/>
+  <path d="M160 36 V76 H200 Z" fill="#c9d0db"/>
+  <rect x="84" y="92" width="92" height="12" rx="6" fill="#9aa4b2"/>
+  <rect x="84" y="112" width="72" height="12" rx="6" fill="#478cbf"/>
+  <rect x="84" y="140" width="96" height="12" rx="6" fill="#9aa4b2"/>
+  <rect x="84" y="160" width="60" height="12" rx="6" fill="#478cbf"/>
+  <rect x="84" y="188" width="44" height="12" rx="6" fill="#9aa4b2"/>
+  <g transform="rotate(45 186 170)">
+    <rect x="172" y="100" width="28" height="92" rx="4" fill="#ffb648"/>
+    <rect x="172" y="100" width="28" height="16" rx="4" fill="#e86a5a"/>
+    <path d="M172 192 H200 L186 218 Z" fill="#f6d7a7"/>
+    <path d="M181 209 H191 L186 218 Z" fill="#2b3445"/>
+  </g>
+</svg>
