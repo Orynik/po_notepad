@@ -1,0 +1,10 @@
+# Normalize line endings in the repository
+* text=auto eol=lf
+
+# Only the plugin folder goes into downloaded archives (Godot Asset Library)
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/project.godot export-ignore
+/test export-ignore
+/README.md export-ignore
+/LICENSE export-ignore

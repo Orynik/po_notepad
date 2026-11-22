@@ -1,0 +1,13 @@
+; Engine configuration file.
+; A minimal project so the plugin can be opened and tested on its own.
+
+config_version=5
+
+[application]
+
+config/name="po_notepad"
+config/features=PackedStringArray("4.7")
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/po_notepad/plugin.cfg")

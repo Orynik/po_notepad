@@ -1,0 +1,15 @@
+# Godot import cache
+.godot/
+*.translation
+
+# GdUnit4 is installed locally to run the tests, not shipped with the plugin
+addons/gdUnit4/
+reports/
+**/gdunit4_test_session_*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*~
